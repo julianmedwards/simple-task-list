@@ -1,0 +1,54 @@
+body {
+    margin: 0;
+}
+
+#todo > div {
+    display: flex;
+    justify-content: center;
+    margin: 0.5rem 2.5%;
+}
+
+input::placeholder {
+    color: #cccccc;
+}
+
+#todo input {
+    width: 100%;
+    padding: 1.5rem 2.5%;
+    border: 0px;
+    border-top: 1px solid #cccccc;
+    border-bottom: 1px solid #cccccc;
+    font-size: 25px;
+    text-align: center;
+}
+
+#todo input:focus-visible {
+    outline: none;
+    background-color: #f7f7f7;
+    border-radius: 3px;
+}
+#todo input:focus-visible::placeholder {
+    color: #bbbbbb;
+}
+
+.btn {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-style: italic;
+    color: #ffffff;
+    background-color: #25d0bc;
+    font-size: 30px;
+    padding: 0.3em 1em;
+    border: 0px;
+    border-radius: 3px;
+}
+
+.btn:active {
+    background-color: #1b998b;
+}
+
+@media screen and (max-width: 450px) {
+    #submit {
+        position: absolute;
+        top: 6.5rem;
+    }
+}
