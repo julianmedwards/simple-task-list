@@ -5,24 +5,26 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="initial-scale=1.0" />
     <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
   </head>
   <body>
     <main>
-      <form id="todo">
+      <form class="todo-form" action="javascript:void(0);" onsubmit="add()">
         <div>
           <input
+            id="todo"
             type="text"
             name="todo"
             placeholder="What's on your agenda?"
             required
             autofocus
           />
-          <div id="submit" class="btn">Todoaloo!</div>
+          <input type="submit" id="submit" class="btn" value="Todoaloo!">
         </div>
       </form>
+      <div id="tasks"></div>
     </main>
     <footer></footer>
   </body>
-  <script src="scripts.js"></script>
   <script src="db.js"></script>
 </html>

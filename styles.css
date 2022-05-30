@@ -2,7 +2,7 @@ body {
     margin: 0;
 }
 
-#todo > div {
+.todo-form > div {
     display: flex;
     justify-content: center;
     margin: 0.5rem 2.5%;
@@ -12,7 +12,7 @@ input::placeholder {
     color: #cccccc;
 }
 
-#todo input {
+.todo-form input {
     width: 100%;
     padding: 1.5rem 2.5%;
     border: 0px;
@@ -22,28 +22,45 @@ input::placeholder {
     text-align: center;
 }
 
-#todo input:focus-visible {
+.todo-form input:focus-visible {
     outline: none;
     background-color: #f7f7f7;
     border-radius: 3px;
 }
-#todo input:focus-visible::placeholder {
+.todo-form input:focus-visible::placeholder {
     color: #bbbbbb;
 }
 
 .btn {
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     font-style: italic;
-    color: #ffffff;
-    background-color: #25d0bc;
-    font-size: 30px;
     padding: 0.3em 1em;
     border: 0px;
     border-radius: 3px;
 }
 
-.btn:active {
+.btn#submit {
+    color: #ffffff;
+    background-color: #25d0bc;
+    font-size: 30px;
+}
+
+.btn#submit:active {
     background-color: #1b998b;
+}
+
+.btn.delete {
+    background-color: rgb(231, 12, 12);
+    width: 10px;
+    height: 10px;
+}
+
+.btn.delete > i {
+    color: #000;
+}
+
+.btn.delete:active {
+    background-color: rgb(179, 12, 12);
 }
 
 @media screen and (max-width: 450px) {
