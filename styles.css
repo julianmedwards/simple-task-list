@@ -1,4 +1,5 @@
 body {
+    font-family: Arial, Helvetica, sans-serif;
     margin: 0;
 }
 
@@ -12,7 +13,7 @@ input::placeholder {
     color: #cccccc;
 }
 
-.todo-form input {
+.todo-form #todo {
     width: 100%;
     padding: 1.5rem 2.5%;
     border: 0px;
@@ -22,19 +23,18 @@ input::placeholder {
     text-align: center;
 }
 
-.todo-form input:focus-visible {
+.todo-form #todo:focus-visible {
     outline: none;
     background-color: #f7f7f7;
     border-radius: 3px;
 }
-.todo-form input:focus-visible::placeholder {
+.todo-form #todo:focus-visible::placeholder {
     color: #bbbbbb;
 }
 
 .btn {
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     font-style: italic;
-    padding: 0.3em 1em;
     border: 0px;
     border-radius: 3px;
 }
@@ -42,6 +42,7 @@ input::placeholder {
 .btn#submit {
     color: #ffffff;
     background-color: #25d0bc;
+    padding: 0.3em 1em;
     font-size: 30px;
 }
 
@@ -51,8 +52,9 @@ input::placeholder {
 
 .btn.delete {
     background-color: rgb(231, 12, 12);
-    width: 10px;
-    height: 10px;
+    display: inline;
+    margin-left: auto;
+    font-size: 20px;
 }
 
 .btn.delete > i {
@@ -68,4 +70,25 @@ input::placeholder {
         position: absolute;
         top: 6.5rem;
     }
+}
+
+#tasks {
+    position: relative;
+    top: 4.5rem;
+}
+
+.task {
+    margin: 1rem 5%;
+    padding: 0px 2.5%;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #cccccc;
+}
+
+.task > p {
+    display: inline;
+    margin: 0;
+}
+
+.task > .btn {
+    float: right;
 }
