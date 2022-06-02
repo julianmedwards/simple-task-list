@@ -32,12 +32,8 @@ function initDatabase(resolve, reject) {
     request.onsuccess = function (event) {
         db = request.result
         console.log('success: ' + db)
+
         let taskArray = retrieveTasks()
-
-        console.log('retrieveTasks return: ')
-        console.log(taskArray)
-
-        console.log('resolving')
         resolve(taskArray)
     }
 
@@ -45,10 +41,11 @@ function initDatabase(resolve, reject) {
         console.log('Upgrading database.')
         var db = event.target.result
         var objectStore = db.createObjectStore('task', {keyPath: 'id'})
-        resolve()
     }
 }
 
+// Add a task to database, create and inject a DOM element, and cycle
+// form placeholder text.
 function add() {
     let id = Date.now()
     let task = document.getElementById('todo').value
@@ -59,7 +56,10 @@ function add() {
         .add({id: id, task: task})
 
     request.onsuccess = function (event) {
-        buildTask(id, task)
+        let newTask = buildTask(id, task)
+        newTask.lastChild.addEventListener('click', del)
+
+        changeFormPlaceholder()
     }
 
     request.onerror = function (event) {
@@ -68,19 +68,40 @@ function add() {
     }
 }
 
+// Select a random placeholder prompt for the task form, clear the form
+// text and re-focus.
+function changeFormPlaceholder() {
+    let prompts = ["What's on your agenda?", 'Enter a task', "What's next?"]
+    let len = prompts.length
+    let prompt = prompts[Math.floor(Math.random() * len)]
+
+    let formField = document.getElementById('todo')
+    if (prompt != formField.getAttribute('placeholder')) {
+        formField.setAttribute('placeholder', prompt)
+    } else {
+        changeFormPlaceholder()
+    }
+
+    document.querySelector('form.todo-form').reset()
+    formField.focus()
+}
+
+// Delete task element from the database. If successful, animate and
+// delete task from DOM.
 function del() {
     let task = this.parentElement
-    let taskId = task.getAttribute('data-key')
-    console.log(task)
-    console.log(taskId)
+    let taskId = Number(task.getAttribute('data-key'))
 
-    request = db
+    let request = db
         .transaction(['task'], 'readwrite')
         .objectStore('task')
         .delete(taskId)
 
     request.onsuccess = function (event) {
-        task.remove()
+        task.classList.add('disappear')
+        task.ontransitionend = () => {
+            task.remove()
+        }
     }
 
     request.onerror = function (event) {
@@ -88,9 +109,9 @@ function del() {
     }
 }
 
+// Iterate through database, injecting elements for each. Return promised
+// array of all created elements.
 function retrieveTasks() {
-    console.log('retrieving')
-
     let objectStore = db.transaction(['task'], 'readonly').objectStore('task')
     let taskArray = []
 
@@ -103,18 +124,16 @@ function retrieveTasks() {
                 taskEl = buildTask(id, task)
                 taskArray.push(taskEl)
 
-                console.log('Built task ' + taskArray[0])
-                console.log(taskArray)
-
                 cursor.continue()
             } else {
-                console.log('retrieved')
                 resolve(taskArray)
             }
         }
     })
 }
 
+// Returns HTML object to be injected in the DOM for a task. ID attached
+// as attribute to target tasks with the same text.
 function buildTask(id, task) {
     let tasks = document.getElementById('tasks')
     let newTask = document.createElement('div')
@@ -136,18 +155,18 @@ function buildTask(id, task) {
     return newTask
 }
 
+changeFormPlaceholder()
+
+// Initialize IndexedDB database and return array of any task elements
+// which were created from storage.
 let initialized = new Promise(function (resolve, reject) {
     initDatabase(resolve, reject)
 })
 
-// Wait for database initialization and retrieval/writing of stored tasks
-// to dom before attaching event listeners to task delete buttons.
+// Attach event listeners to delete buttons of dynamically created
+// task elements.
 initialized.then(
     function (taskArray) {
-        console.log('taskArray at initialized.then ')
-        console.log(taskArray)
-        let taskArrayDOM = document.querySelectorAll('div.task')
-        console.log(taskArrayDOM)
         for (let i of taskArray) {
             let delBtn = i.lastChild
             delBtn.addEventListener('click', del)

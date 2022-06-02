@@ -3,8 +3,14 @@ body {
     margin: 0;
 }
 
+main {
+    max-width: 800px;
+    margin: auto;
+}
+
 .todo-form > div {
     display: flex;
+    align-items: center;
     justify-content: center;
     margin: 0.5rem 2.5%;
 }
@@ -44,6 +50,9 @@ input::placeholder {
     background-color: #25d0bc;
     padding: 0.3em 1em;
     font-size: 30px;
+    position: absolute;
+    top: 6.5rem;
+    box-shadow: 2px 2px 5px #ccc;
 }
 
 .btn#submit:active {
@@ -51,44 +60,45 @@ input::placeholder {
 }
 
 .btn.delete {
-    background-color: rgb(231, 12, 12);
-    display: inline;
-    margin-left: auto;
+    display: flex;
+    align-items: center;
     font-size: 20px;
+    margin-left: auto;
 }
 
 .btn.delete > i {
     color: #000;
+    background-color: rgb(231, 12, 12);
+    box-shadow: 1px 1px 3px #ccc;
+    border-radius: 3px;
 }
 
-.btn.delete:active {
+.btn.delete > i:active {
     background-color: rgb(179, 12, 12);
-}
-
-@media screen and (max-width: 450px) {
-    #submit {
-        position: absolute;
-        top: 6.5rem;
-    }
 }
 
 #tasks {
     position: relative;
     top: 4.5rem;
+    margin: auto;
 }
 
 .task {
+    display: flex;
+    gap: 1em;
     margin: 1rem 5%;
     padding: 0px 2.5%;
     padding-bottom: 1rem;
     border-bottom: 1px solid #cccccc;
 }
 
-.task > p {
-    display: inline;
-    margin: 0;
+.task.disappear {
+    transform: translate(-110%, 0);
+    transition-duration: 120ms;
+    transition-timing-function: ease-in;
 }
 
-.task > .btn {
-    float: right;
+.task > p {
+    display: inline;
+    margin: 0px;
 }
