@@ -44,8 +44,8 @@ function initDatabase(resolve, reject) {
     }
 }
 
-// Add a task to database, create and inject a DOM element, and cycle
-// form placeholder text.
+// Add a task to database, create and inject a DOM element, attaching
+// delete event listener. Finally cycle form placeholder text.
 function add() {
     let id = Date.now()
     let task = document.getElementById('todo').value
